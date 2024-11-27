@@ -13,8 +13,10 @@
     "express": "^4.21.1",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
+    "store": "^2.0.12",
     "vue": "^3.5.12",
-    "vue-router": "^4.4.5"
+    "vue-router": "^4.4.5",
+    "vue-socket.io": "^3.0.10"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",

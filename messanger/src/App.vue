@@ -1,28 +1,38 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <!-- ConnectionState from socket.io docs -->
+  <div>
+    <p>State: {{ connected }}</p>
+  </div>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
 
-  <main>
-    <TheWelcome />
-  </main>
+  <!-- ConnectionManager from Socket.io docs -->
+  <div>
+    <button @click="connect()">Connect</button>
+    <button @click="disconnect()">Disconnect</button>
+  </div>
+  
 </template>
 
 <script>
-const { io } = require('socket.io-client')
-const socket = io('http://localhost:3001')
+// const { io } = require('socket.io-client')
+// const socket = io('http://localhost:3001')
+import { state } from "@/socket";
 
 export default {
   name: 'App',
+  computed: {
+    connected() { // ConnectionState from Socket.io docs
+      return state.connected;
+    }
+  },
+  methods: {
+    connect() { // ConnectionManager from Socket.io docs
+      socket.connect();
+    },
+    disconnect() { // ConnectionManager from Socket.io docs
+      socket.disconnect();
+    }
+  }
 }
 </script>
 
