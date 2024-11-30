@@ -7,7 +7,7 @@ const port = 3000
 const portio = 3001
 const app = express()
 const httpServer = createServer(app)
-const io = new Server({
+const io = new Server(httpServer, {
   cors: {
     origin: 'http://localhost:5173'
   },

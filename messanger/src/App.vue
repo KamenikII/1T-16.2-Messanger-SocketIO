@@ -1,39 +1,55 @@
 <template>
-  <!-- ConnectionState from socket.io docs -->
-  <div>
-    <p>State: {{ connected }}</p>
-  </div>
+  <header>
+    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
+    <div class="wrapper">
+      <HelloWorld msg="You did it!" />
 
-  <!-- ConnectionManager from Socket.io docs -->
-  <div>
-    <button @click="connect()">Connect</button>
-    <button @click="disconnect()">Disconnect</button>
-  </div>
-  
+      <nav>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/socketio">Socket.IO</RouterLink>
+      </nav>
+    </div>
+  </header>
+
+  <RouterView />
 </template>
 
 <script>
-// const { io } = require('socket.io-client')
-// const socket = io('http://localhost:3001')
-import { state } from "@/socket";
+import { RouterLink, RouterView } from 'vue-router'
+import { useItemStore } from '@/stores/item'
+import { useConnectionStore } from '@/stores/connection'
+import { socket } from '@/socket'
 
-export default {
-  name: 'App',
-  computed: {
-    connected() { // ConnectionState from Socket.io docs
-      return state.connected;
-    }
-  },
-  methods: {
-    connect() { // ConnectionManager from Socket.io docs
-      socket.connect();
-    },
-    disconnect() { // ConnectionManager from Socket.io docs
-      socket.disconnect();
-    }
-  }
-}
+const itemStore = useItemStore()
+const connectionStore = useConnectionStore()
+
+// remove any existing listeners (after a hot module replacement)
+socket.off()
+
+itemStore.bindEvents()
+connectionStore.bindEvents()
+// // const { io } = require('socket.io-client')
+// // const socket = io('http://localhost:3001')
+// import { state } from "@/socket";
+
+// export default {
+//   name: 'App',
+//   computed: {
+//     connected() { // ConnectionState from Socket.io docs
+//       return state.connected;
+//     }
+//   },
+//   methods: {
+//     connect() { // ConnectionManager from Socket.io docs
+//       socket.connect();
+//     },
+//     disconnect() { // ConnectionManager from Socket.io docs
+//       socket.disconnect();
+//     }
+//   }
+// }
 </script>
 
 <style scoped>

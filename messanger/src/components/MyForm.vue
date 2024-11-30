@@ -7,26 +7,26 @@
 </template>
 
 <script>
-import { socket } from "@/socket";
+import { socket } from '@/socket'
 
 export default {
-  name: "MyForm",
+  name: 'MyForm',
 
   data() {
     return {
       isLoading: false,
-      value: ""
+      value: '',
     }
   },
 
   methods: {
     onSubmit() {
-      this.isLoading = true;
+      this.isLoading = true
 
-      socket.timeout(5000).emit("create-something", this.value, () => {
-        this.isLoading = false;
-      });
+      socket.timeout(5000).emit('create-something', this.value, () => {
+        this.isLoading = false
+      })
     },
-  }
+  },
 }
 </script>
